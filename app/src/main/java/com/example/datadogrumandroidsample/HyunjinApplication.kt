@@ -34,7 +34,7 @@ class HyunjinApplication : Application() {
 	}
 
 	private fun initRum() {
-        Datadog.setVerbosity(Log.VERBOSE)
+        Datadog.setVerbosity(Log.DEBUG)
 
         val clientToken = "pubd6cd280cffccdbca312a9abb2b8400ae"
         val applicationId = "adf89367-0027-48d9-b103-29a9063ccce0"

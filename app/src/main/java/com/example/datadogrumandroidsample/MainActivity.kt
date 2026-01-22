@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.datadog.android.Datadog
 import com.datadog.android.okhttp.DatadogEventListener
 import com.datadog.android.okhttp.DatadogInterceptor
+import com.datadog.android.okhttp.trace.TracingInterceptor
 import com.datadog.android.rum.GlobalRumMonitor
 import com.example.datadogrumandroidsample.databinding.ActivityMainBinding
 import okhttp3.OkHttpClient
@@ -14,6 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import io.opentracing.util.GlobalTracer
 
 
 class MainActivity : AppCompatActivity() {
@@ -63,11 +65,20 @@ class MainActivity : AppCompatActivity() {
 
 	fun initRetrofitInit() {
 		//HTTP 인터셉터
-		val okHttpClient = OkHttpClient.Builder()
-			.addInterceptor(DatadogInterceptor(rumResourceAttributesProvider = CustomRumResourceAttributesProvider()))
-			.eventListenerFactory(DatadogEventListener.Factory())
-			.build()
+        val tracedHosts = listOf("joongomarket.com")
+//
+//		val okHttpClient = OkHttpClient.Builder()
+//			.addInterceptor(DatadogInterceptor(rumResourceAttributesProvider = CustomRumResourceAttributesProvider()))
+//			.eventListenerFactory(DatadogEventListener.Factory())
+//            .addNetworkInterceptor(TracingInterceptor.Builder(tracedHosts).build())
+//            .build()
 
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(
+                DatadogInterceptor.Builder(tracedHosts)
+                    .build()
+            )
+            .build()
 		mRetrofit =  Retrofit.Builder()
 			.client(okHttpClient)
 			.baseUrl("https://joongomarket.com/")
