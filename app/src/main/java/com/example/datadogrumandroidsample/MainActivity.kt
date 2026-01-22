@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.datadog.android.Datadog
 import com.datadog.android.okhttp.DatadogEventListener
 import com.datadog.android.okhttp.DatadogInterceptor
-import com.datadog.android.okhttp.trace.TracingInterceptor
 import com.datadog.android.rum.GlobalRumMonitor
 import com.example.datadogrumandroidsample.databinding.ActivityMainBinding
 import okhttp3.OkHttpClient
@@ -15,44 +14,43 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import io.opentracing.util.GlobalTracer
 
 
 class MainActivity : AppCompatActivity() {
 
-	private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
-	private var mRetrofit: Retrofit? = null
+    private var mRetrofit: Retrofit? = null
 
-	private var mRetrofitAPI: RetrofitAPI? = null
+    private var mRetrofitAPI: RetrofitAPI? = null
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-		binding = ActivityMainBinding.inflate(layoutInflater)
-		setContentView(binding.root)
-		initTransferButtonView()
-		initTimingButtonView()
-		//SetUser
-		Datadog.setUserInfo("1", "HyunjinLee", "hyunjin.lee@datadoghq.com")
-		initRetrofitInit()
-	}
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initTransferButtonView()
+        initTimingButtonView()
+        //SetUser
+        Datadog.setUserInfo("1", "HyunjinLee", "hyunjin.lee@datadoghq.com")
+        initRetrofitInit()
+    }
 
-	private fun initTransferButtonView() {
-		binding.transfer.setOnClickListener {
-			val testString = mRetrofitAPI?.test()
-			testString?.enqueue(object : Callback<HyunjinResponse> {
-				override fun onResponse(call: Call<HyunjinResponse>, response: Response<HyunjinResponse>) {
-					Log.i("rum_test", "responseHeaders" + response.headers())
-					Log.i("rum_test", "responseBody" + response.body())
-				}
+    private fun initTransferButtonView() {
+        binding.transfer.setOnClickListener {
+            val testString = mRetrofitAPI?.test()
+            testString?.enqueue(object : Callback<HyunjinResponse> {
+                override fun onResponse(call: Call<HyunjinResponse>, response: Response<HyunjinResponse>) {
+                    Log.i("rum_test", "responseHeaders" + response.headers())
+                    Log.i("rum_test", "responseBody" + response.body())
+                }
 
-				override fun onFailure(call: Call<HyunjinResponse>, t: Throwable) {
-					Log.i("rum_test", "onFail" + t)
-				}
-			})
-		}
-	}
+                override fun onFailure(call: Call<HyunjinResponse>, t: Throwable) {
+                    Log.i("rum_test", "onFail" + t)
+                }
+            })
+        }
+    }
 
 	private fun initTimingButtonView() {
 		binding.timing.setOnClickListener {
