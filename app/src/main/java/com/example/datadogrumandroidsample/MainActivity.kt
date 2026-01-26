@@ -7,6 +7,7 @@ import com.datadog.android.Datadog
 import com.datadog.android.okhttp.DatadogEventListener
 import com.datadog.android.okhttp.DatadogInterceptor
 import com.datadog.android.rum.GlobalRumMonitor
+import com.datadog.android.core.sampling.RateBasedSampler
 import com.example.datadogrumandroidsample.databinding.ActivityMainBinding
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 //		val okHttpClient = OkHttpClient.Builder()
 //			.addInterceptor(DatadogInterceptor(rumResourceAttributesProvider = CustomRumResourceAttributesProvider()))
 //			.eventListenerFactory(DatadogEventListener.Factory())
-//            .addNetworkInterceptor(TracingInterceptor.Builder(tracedHosts).build())
+//            .addNetworkInterceptor(TracingInterceptor.Builder(tracedHosts).setTraceSampler(RateBasedSampler(100f).build())
 //            .build()
 
         val okHttpClient = OkHttpClient.Builder()
