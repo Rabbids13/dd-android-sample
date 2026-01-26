@@ -78,7 +78,7 @@ class HyunjinApplication : Application() {
         val traceConfig = TraceConfiguration.Builder().build()
         Trace.enable(traceConfig)
 
-        val tracer = AndroidTracer.Builder().build()
+        val tracer = AndroidTracer.Builder().setSampleRate(100.0).build()
         GlobalTracer.registerIfAbsent(tracer)
 
 //		val clientToken = "pubd6cd280cffccdbca312a9abb2b8400ae"
