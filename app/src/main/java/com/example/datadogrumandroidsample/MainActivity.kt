@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
 	fun initRetrofitInit() {
 		//HTTP 인터셉터
-        val tracedHosts = listOf("joongomarket.com")
+        val tracedHosts = listOf("trycloudflare.com")
 //
 //		val okHttpClient = OkHttpClient.Builder()
 //			.addInterceptor(DatadogInterceptor(rumResourceAttributesProvider = CustomRumResourceAttributesProvider()))
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 		mRetrofit =  Retrofit.Builder()
 			.client(okHttpClient)
-			.baseUrl("https://joongomarket.com/")
+			.baseUrl("https://sorts-advertiser-rating-anyone.trycloudflare.com")
 			.addConverterFactory(GsonConverterFactory.create())
 			.build();
 
