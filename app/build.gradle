@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.5.1"
+    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.15.0"
 
 }
 
